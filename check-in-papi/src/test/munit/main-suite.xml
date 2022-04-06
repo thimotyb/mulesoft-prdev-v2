@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="main-suite.xml" />
+  <munit:test name="payment-approval-by-pnr-test" doc:id="78d0c93a-a5ef-4d3f-b54c-6277e025b61c" >
+    <munit:behavior >
+      <munit-tools:mock-when doc:name="Mock get-boarding-pass" doc:id="88c168f0-e45a-45a4-9da2-dc48a335e6b6" processor="flow-ref">
+        <munit-tools:with-attributes >
+          <munit-tools:with-attribute whereValue="96c21167-2b2c-481e-9d31-9a0d6ab67281" attributeName="doc:id" />
+        </munit-tools:with-attributes>
+        <munit-tools:then-return >
+          <munit-tools:payload value="#[output application/json --- readUrl('classpath://paymentapprovalbypnrtest\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+        </munit-tools:then-return>
+      </munit-tools:mock-when>
+      <munit-tools:mock-when doc:name="Mock update-approvals" doc:id="f8405ed3-37fd-4252-9808-6afbcb8077d4" processor="flow-ref">
+        <munit-tools:with-attributes >
+          <munit-tools:with-attribute whereValue="09293642-6f58-4687-9c5b-e0a1575f3941" attributeName="doc:id" />
+        </munit-tools:with-attributes>
+        <munit-tools:then-return >
+          <munit-tools:payload value="#[output application/json --- readUrl('classpath://paymentapprovalbypnrtest\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+          <munit-tools:attributes value="#[readUrl('classpath://paymentapprovalbypnrtest\mock_attributes.dwl')]" />
+          <munit-tools:variables >
+            <munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://paymentapprovalbypnrtest\mock_variable_.dwl')]" />
+            <munit-tools:variable key="PNR" value="#[output application/java --- readUrl('classpath://paymentapprovalbypnrtest\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+          </munit-tools:variables>
+        </munit-tools:then-return>
+      </munit-tools:mock-when>
+      <munit:set-event doc:name="Set Input" doc:id="2523558d-6447-4e3f-ae47-73af6f3c936e" >
+        <munit:payload value="#[output application/json --- readUrl('classpath://paymentapprovalbypnrtest\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+        <munit:attributes value="#[readUrl('classpath://paymentapprovalbypnrtest\set-event_attributes.dwl')]" />
+        <munit:variables >
+          <munit:variable key="outboundHeaders" value="#[readUrl('classpath://paymentapprovalbypnrtest\set-event_variable_.dwl')]" />
+          <munit:variable key="PNR" value="#[output application/java --- readUrl('classpath://paymentapprovalbypnrtest\set-event_variable_1.dwl')]" encoding="UTF-8" mediaType="application/java" />
+        </munit:variables>
+      </munit:set-event>
+    </munit:behavior>
+    <munit:execution >
+      <flow-ref doc:name="Flow-ref to payment-approval-by-pnr" doc:id="2153f066-6be2-4fb3-995e-cf52198d0522" name="payment-approval-by-pnr"/>
+    </munit:execution>
+    <munit:validation >
+      <munit-tools:assert doc:name="Assert payload" doc:id="a0e992e9-3022-49be-a50c-bec5fc48e9a8" message="The payload does not match">
+        <munit-tools:that ><![CDATA[#[%dw 2.0
+import paymentapprovalbypnrtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+      </munit-tools:assert>
+    </munit:validation>
+  </munit:test>
+
+
+</mule>

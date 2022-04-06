@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- APPS COMMONS POM APPS COMMONS POM APPS COMMONS POM -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+       <groupId>303ec7d7-3f7d-4cd0-b698-ef1f76fc608c</groupId>
+        <artifactId>solutions-parent-pom</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../parent-pom/pom.xml</relativePath>    
+    </parent>
+
+
+	<groupId>303ec7d7-3f7d-4cd0-b698-ef1f76fc608c</groupId>
+	<artifactId>apps-commons</artifactId>
+	<version>1.0.1</version>
+	<packaging>mule-application</packaging>
+
+	<name>apps-commons</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<app.runtime>4.4.0-20211227</app.runtime>
+		<mule.maven.plugin.version>3.5.2</mule.maven.plugin.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+                <configuration>
+                  <classifier>mule-plugin</classifier>
+                </configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-http-connector</artifactId>
+			<classifier>mule-plugin</classifier>
+            <!-- must be provided by enclosing Mule app -->
+            <scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

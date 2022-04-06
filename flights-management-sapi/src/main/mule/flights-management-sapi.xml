@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+
+  <flow name="flights-management-sapiFlow" doc:id="3a6146d6-c3dc-4d32-984a-5ffe8dba86d1" >
+    <http:listener doc:name="Listener" doc:id="52c40d63-1cf5-4f87-ab9f-7172ae6278b8" config-ref="apiHttpListenerConfig" path="/api/v1/*"/>
+    <logger level="INFO" doc:name="Logger" doc:id="d522299f-b5c3-4b43-af6c-ccfb65b6d697" />
+  </flow>
+</mule>

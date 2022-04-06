@@ -1,0 +1,17 @@
+%dw 2.0
+
+type auto_4cdf8ef0_3c5e_4580_816c_0bb96c074b73_Output_Payload = {|
+  flight: String, 
+  lastName: String, 
+  gate: String, 
+  PNR: String, 
+  flightDate: String, 
+  boarding: String, 
+  seat: String, 
+  depart: String, 
+  class: String, 
+  airportArrive: String, 
+  airportDepart: String, 
+  bagsCount: Number
+|}
+
